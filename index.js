@@ -1,13 +1,17 @@
-function rightSideView(root) {
-  if (!root) return [];
-  const result = [];
-  let level = 0;
-  const traverse = (node, level) => {
-    if (!node) return;
-    if (result[level] === undefined) result[level] = node.val;
-    traverse(node.right, level + 1);
-    traverse(node.left, level + 1);
-  };
-  traverse(root, level);
-  return result;
+function isIsomorphic(s, t) {
+  if (s.length !== t.length) return false;
+  const sMap = new Map();
+  const tMap = new Map();
+  for (let i = 0; i < s.length; i++) {
+    const sChar = s[i];
+    const tChar = t[i];
+    if (
+      (sMap.has(sChar) && sMap.get(sChar) !== tChar) ||
+      (tMap.has(tChar) && tMap.get(tChar) !== sChar)
+    )
+      return false;
+    sMap.set(sChar, tChar);
+    tMap.set(tChar, sChar);
+  }
+  return true;
 }
