@@ -1,17 +1,22 @@
-function combinationSum3(k, n) {
-  const result = [];
-  backtrack([], 1, k, n);
-  return result;
-  function backtrack(combination, start, k, n) {
-    if (n === 0 && k === 0) {
-      result.push([...combination]);
-      return;
-    }
-    if (n < 0 || k === 0) return;
-    for (let i = start; i <= 9; i++) {
-      combination.push(i);
-      backtrack(combination, i + 1, k - 1, n - i);
-      combination.pop();
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+function merge(left, right) {
+  let result = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
     }
   }
+  return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
