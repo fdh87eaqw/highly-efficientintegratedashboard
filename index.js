@@ -1,6 +1,10 @@
-const flattenDepth = (arr, depth = 1) =>
-  arr.reduce(
-    (a, v) =>
-      a.concat(depth > 1 && Array.isArray(v) ? flattenDepth(v, depth - 1) : v),
-    [],
-  );
+function mergeKLists(lists) {
+  if (lists.length === 0) return null;
+  while (lists.length > 1) {
+    const first = lists.shift();
+    const second = lists.shift();
+    const merged = mergeTwoLists(first, second);
+    lists.push(merged);
+  }
+  return lists[0];
+}
